@@ -4,7 +4,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
+    <title>Train Scheduler</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -53,7 +53,7 @@
 
 </header>
     <div class="container">
-        <!-- Current Employees table -->
+        <!-- Current Train table -->
         <table class="table">
             <thead>
                 <tr>
@@ -62,67 +62,68 @@
                     <th scope="col">Frequency (Min)</th>
                     <th scope="col">Next Arrival</th>
                     <th scope="col">Minutes Away</th>
-                   
+                    
                 </tr>
             </thead>
             <tbody>
                 <!-- Were our Employee Info will be displayed -->
                 <tr>
-                    <td id="nameDisplay">Trenton Express</td>
-                    <td id="roleDisplay">Trenton</td>
-                    <td id="startDisplay">25</td>
-                    <td id="monthsWorkedDisplay">05:35 PM</td>
-                    <td id="rateDisplay">10</td>
-                    
-                </tr>
-                 <tr>
-                    <td id="nameDisplay">Oregon Trail</td>
-                    <td id="roleDisplay">Salem, Oregon</td>
-                    <td id="startDisplay">3600</td>
-                    <td id="monthsWorkedDisplay">01:39 PM</td>
-                    <td id="rateDisplay">1154</td>
+                    <td id="trainName">Trenton Express</td>
+                    <td id="location">Trenton</td>
+                    <td id="frequency">25</td>
+                    <td id="arrivalTime">05:35 PM</td>
+                    <td id="minsAway">10</td>
                    
                 </tr>
                 <tr>
-                    <td id="nameDisplay">Midnght Carriage</td>
-                    <td id="roleDisplay">Philadelpha</td>
-                    <td id="startDisplay">15</td>
-                    <td id="monthsWorkedDisplay">05:35 PM</td>
-                    <td id="rateDisplay">10</td>
+                    <td id="trainName">Oregon Trail</td>
+                    <td id="location">Salem, Oregon</td>
+                    <td id="frequency">3600</td>
+                    <td id="arrivalTime">01:39 PM</td>
+                    <td id="min">1154</td>
                    
                 </tr>
                 <tr>
-                    <td id="nameDisplay">Sing Sing Caravan</td>
-                    <td id="roleDisplay">Atlanta</td>
-                    <td id="startDisplay">45</td>
-                    <td id="monthsWorkedDisplay">05:53 PM</td>
-                    <td id="rateDisplay">28</td>
+                    <td id="trainName">Midnght Carriage</td>
+                    <td id="location">Philadelpha</td>
+                    <td id="frequency">15</td>
+                    <td id="arrivalTime">05:35 PM</td>
+                    <td id="minsAway">10</td>
                    
                 </tr>
                 <tr>
-                    <td id="nameDisplay">Boston Bus</td>
-                    <td id="roleDisplay">Boston</td>
-                    <td id="startDisplay">65</td>
-                    <td id="monthsWorkedDisplay">05:50 PM</td>
-                    <td id="rateDisplay">25</td>
+                    <td id="trainName">Sing Sing Caravan</td>
+                    <td id="location">Atlanta</td>
+                    <td id="frequency">45</td>
+                    <td id="arrivalTime">05:53 PM</td>
+                    <td id="minsAway">28</td>
                    
                 </tr>
                 <tr>
-                    <td id="nameDisplay">California Caravan</td>
-                    <td id="roleDisplay">San Francisco</td>
-                    <td id="startDisplay">6000</td>
-                    <td id="monthsWorkedDisplay">01:25 AM</td>
-                    <td id="rateDisplay">4740</td>
+                    <td id="trainName">Boston Bus</td>
+                    <td id="location">Boston</td>
+                    <td id="frequency">65</td>
+                    <td id="arrivalTime">05:50 PM</td>
+                    <td id="minsAway">25</td>
                    
                 </tr>
                 <tr>
-                    <td id="nameDisplay">Analben's Train</td>
-                    <td id="roleDisplay">Florida</td>
-                    <td id="startDisplay">25</td>
-                    <td id="monthsWorkedDisplay">05:28 PM</td>
-                    <td id="rateDisplay">3</td>
+                    <td id="trainName">California Caravan</td>
+                    <td id="location">San Francisco</td>
+                    <td id="frequency">6000</td>
+                    <td id="arrivalTime">01:25 AM</td>
+                    <td id="minsAway">4740</td>
                    
                 </tr>
+                <tr>
+                    <td id="trainName">Analben's Train</td>
+                    <td id="location">Florida</td>
+                    <td id="frequency">25</td>
+                    <td id="arrivalTime">05:28 PM</td>
+                    <td id="minsAway">3</td>
+                   
+                </tr>
+
             </tbody>
         </table>
 
@@ -186,8 +187,10 @@
         var role = "";
         var startDate = 0;
         var monthlyRate = "";
-        var totalBilled = "";
+        // var totalBilled = "";
 
+
+//submiting the button with data values in the firebase 
         $("#add-user").click(function (event) {
             event.preventDefault();
 
@@ -207,6 +210,8 @@
 
 
             });
+            // need to clear the text box after user submit
+            
         });
 
         database.ref().on("child_added", function (snapshot) {
@@ -217,19 +222,29 @@
             console.log(sv.name);
             console.log(sv.role);
             console.log(sv.startDate);
-            console.log(sv.monthsWorkedDisplay);
-            console.log(sv.rateDisplay)
+            console.log(sv.arrivalTime);
+            console.log(sv.minsAway)
             // console.log(sv.billedDisplay)
             //console.log(totalBilled);
 
             // Change the HTML to reflect
-            $("#nameDisplay").text(sv.name);
-            $("#roleDisplay").text(sv.role);
-            $("#startDisplay").text(sv.startDate);
-            $("#monthsWorkedDisplay").text(sv.monthsWorkedDisplay);
-            $("#rateDisplay").text(sv.rateDisplay);
+            // $("#trainName").text(sv.name);
+            // $("#location").text(sv.role);
+            // $("#frequency").text(sv.startDate);
+            // $("#arrivalTime").text(sv.arrivalTime);
+            // $("#minsAway").text(sv.minsAway);
             // $("#billedDisplay").text(sv.billedDisplay);
-
+            /*
+            <tr>
+                    <td id="trainName">Analben's Train</td>
+                    <td id="location">Florida</td>
+                    <td id="frequency">25</td>
+                    <td id="arrivalTime">05:28 PM</td>
+                    <td id="minsAway">3</td>
+                   
+                </tr>*/
+            //need to append to the end of the last row and table 
+            $('</tbody>').append('<tr> <td id="trainName"> </td>');
 
             // Handle the errors
         }, function (errorObject) {
